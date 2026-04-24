@@ -1,0 +1,17 @@
+feature,importance
+hiv_aids,3.105026
+adult_mortality,2.5178955
+income_composition_of_resources,1.7624893
+infant_deaths,0.5001091
+schooling,0.45709717
+bmi,0.36213335
+alcohol,0.2913502
+year,0.22294575
+percentage_expenditure,0.20743297
+diphtheria,0.1967812
+total_expenditure,0.18279713
+polio,0.1573645
+population,0.07571104
+gdp,0.06487795
+status_encoded,0.062797524
+hepatitis_b,0.06185766

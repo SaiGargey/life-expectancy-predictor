@@ -1,0 +1,1 @@
+{"xgb_r2": 0.9696, "xgb_mae": 1.0755, "xgb_accuracy_pct": 96.96, "rf_r2": 0.9667, "rf_mae": 1.0665, "rf_accuracy_pct": 96.67, "dataset": "WHO Real Data (193 countries, 2000-2015)", "n_samples": 2928}
