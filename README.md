@@ -125,8 +125,4 @@ Then open your browser at: **http://localhost:8501**
 
 ---
 
-## 👥 Authors
-
-Final Year Project — [Your Name / Team Names]
-[Your College Name]
-[Year]
+## 👥 Author: Sai Gargey Nakka
