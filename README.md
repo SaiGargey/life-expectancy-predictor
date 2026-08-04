@@ -126,4 +126,4 @@ Then open your browser at: **http://localhost:8501**
 
 ---
 
-## 👥 Author: Sai Gargey Nakka
+## ✍️ Author: Sai Gargey Nakka
