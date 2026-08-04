@@ -120,8 +120,9 @@ Then open your browser at: **http://localhost:8501**
 - Census of India
 - Institute for Health Metrics and Evaluation (IHME)
 
-> Note: The dataset used in this prototype is synthetically generated
-> based on published statistical ranges from the above sources.
+> Note: This prototype uses a synthetic dataset generated to reflect statistical ranges reported by WHO,
+> the World Bank, and other cited sources. It is intended for demonstration and development purposes
+> only and does not represent real-world observations.
 
 ---
 
