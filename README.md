@@ -9,7 +9,7 @@
 
 This project investigates variations in life expectancy across countries and Indian states,
 identifies the key factors driving those differences, and builds an AI-powered system to:
-- Predict life expectancy with ~80% R² accuracy (XGBoost)
+- Predict life expectancy with ~97% R² (XGBoost)
 - Explain predictions using SHAP (Explainable AI)
 - Estimate causal effects using DoWhy (Causal Modelling)
 - Simulate future scenarios (2024–2050) under different policy conditions
@@ -94,10 +94,9 @@ Then open your browser at: **http://localhost:8501**
 
 | Metric | Value |
 |--------|-------|
-| R² Score | ~0.80 |
-| Accuracy | ~80% |
-| MAE | ~2.2 years |
-| Training Samples | 3,000 |
+| R² Score | ~0.9696 |
+| MAE | ~1.1 years |
+| Training Samples | 2,928 |
 | Features | 22 |
 
 ---
