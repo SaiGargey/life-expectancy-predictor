@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-import json, os, warnings
+import json, warnings
 warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title="India Life Expectancy — XAI", page_icon="🫀",
@@ -547,31 +547,39 @@ elif "Ancestral" in page:
     st.markdown('<div class="section-header"><h2>📜 Ancestral Wisdom vs Modern Lifestyle</h2>'
                 '<p>What our ancestors did right — backed by modern science</p></div>', unsafe_allow_html=True)
 
-    for era, icon, practices, impact in [
-        ("Vedic Period (~1500 BCE)", "🌿",
-         ["Ayurvedic medicine — personalised treatment","Seasonal eating (Ritucharya)",
-          "Daily yoga and pranayama","Plant-based diet, no processed food"],
-         "Documented lifespans of 80–100 years among healthy adults"),
-        ("Ancient India (Classical)", "☀️",
-         ["Sun exposure — natural Vitamin D","Sleep with sunset, rise at sunrise",
-          "Fasting practices (Ekadashi)","Herbal remedies: turmeric, neem, ashwagandha"],
-         "Lower inflammation, better metabolism, stronger immunity"),
-        ("Traditional Rural India", "🌾",
-         ["Physical farming — 6+ hrs daily activity","Fresh, unprocessed local foods",
-          "Strong community bonds (lower stress)","No alcohol or tobacco use"],
-         "Rural India still has lower obesity and cardiac disease rates"),
-        ("Modern Evidence-Based", "🔬",
-         ["Mediterranean-Indian fusion diet","Intermittent fasting (science-backed)",
-          "Mindfulness — proven stress reduction","Early disease screening (AI-powered)"],
-         "Projected +5–8 year life extension if widely adopted"),
+    for era, icon, practices in [
+    ("Vedic Period (~1500 BCE)", "🌿",
+     [("Ayurvedic medicine — personalised treatment", "https://www.who.int/publications/i/item/9789240042674"),
+      ("Seasonal eating (Ritucharya)", "https://pubmed.ncbi.nlm.nih.gov/22661838/"),
+      ("Daily yoga and pranayama", "https://pmc.ncbi.nlm.nih.gov/articles/PMC3415184/"),
+      ("Plant-based diet, no processed food", "https://pmc.ncbi.nlm.nih.gov/articles/PMC11412377/")]),
+
+    ("Ancient India (Classical)", "☀️",
+     [("Sun exposure — natural Vitamin D", "https://pmc.ncbi.nlm.nih.gov/articles/PMC2290997/"),
+      ("Sleep with sunset, rise at sunrise", "https://www.nhlbi.nih.gov/health/sleep"),
+      ("Periodic fasting practices, including Ekadashi", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8932957/"),
+      (("<span style='color:#3d9df3;'>Herbal remedies: </span> <a href='https://www.ncbi.nlm.nih.gov/books/NBK92752/'>Turmeric</a>"
+      "<span style='color:#3d9df3;'>,</span> <a href='https://pmc.ncbi.nlm.nih.gov/articles/PMC4791507/'>Neem</a><span style='color:#3d9df3;'>,"
+      "</span> <a href='https://ods.od.nih.gov/factsheets/Ashwagandha-HealthProfessional/'>Ashwagandha</a>", ""))]),
+
+    ("Traditional Rural India", "🌾",
+     [("Physical farming — 6+ hrs daily activity", "https://pmc.ncbi.nlm.nih.gov/articles/PMC3257835/"),
+      ("Fresh, unprocessed local foods", "https://pmc.ncbi.nlm.nih.gov/articles/PMC6309636/"),
+      ("Strong community bonds (lower stress)", "https://pmc.ncbi.nlm.nih.gov/articles/PMC10957100/"),
+      ("No alcohol or tobacco use", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5588903/")]),
+
+    ("Modern Evidence-Based", "🔬",
+     [("Mediterranean-Indian fusion diet", "https://www.health.harvard.edu/heart-health/an-indian-adaptation-of-the-mediterranean-diet"),
+      ("Intermittent fasting (science-backed)", "https://www.nia.nih.gov/news/research-intermittent-fasting-shows-health-benefits"),
+      ("Mindfulness — proven stress reduction", "https://newsinhealth.nih.gov/2021/06/mindfulness-your-health"),
+      ("Early disease screening (AI-powered)", "https://pmc.ncbi.nlm.nih.gov/articles/PMC12236417/")]),
     ]:
         with st.expander(f"{icon}  {era}", expanded=False):
-            c1,c2 = st.columns([2,1])
-            with c1:
-                for p in practices: st.markdown(f"- {p}")
-            with c2:
-                st.markdown(f'<div class="insight-box"><b>📈 Impact</b><br>{impact}</div>', unsafe_allow_html=True)
-
+            for p, url in practices:
+                if url:
+                    st.markdown(f"- [{p}]({url})")
+                else:
+                    st.markdown(f"- {p}", unsafe_allow_html=True)
     st.markdown("### 🆚 Then vs Now — Radar Chart")
     comparison = pd.DataFrame({
         'Factor':['Physical Activity','Diet Quality','Stress Level','Sleep Quality',
