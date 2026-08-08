@@ -33,9 +33,9 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
   color:#4fc3f7; padding:4px 14px; border-radius:20px; font-size:0.8em; font-weight:600;
   letter-spacing:1px; text-transform:uppercase; margin-bottom:16px; }
 .section-header { border-left:4px solid #4fc3f7; padding-left:14px; margin:30px 0 16px; }
-.section-header h2 { color:#1a3a5c; margin:0; font-size:1.6em; }
+.section-header h2 { color:#6fa8c9 !important; margin:0; font-size:1.6em; }
             .js-plotly-plot .plotly .legend text { fill: #1a3a5c !important; }
-.section-header p  { color:#5a7a9a; margin:4px 0 0; font-size:0.9em; }
+.section-header p  { color:#4fc3f7 !important; margin:4px 0 0; font-size:0.9em; }
 .insight-box { background:#f0f7ff; border:1px solid #bee3f8; border-radius:10px;
   padding:16px 20px; margin:10px 0; border-left:4px solid #4fc3f7; color:#1a3a5c; }
 .prediction-result { background:linear-gradient(135deg,#0d2137,#0a3d62); color:white;
@@ -121,8 +121,10 @@ if "Overview" in page:
         fig = px.area(trend, x='year', y='life_expectancy', color_discrete_sequence=['#4fc3f7'])
         fig.update_layout(plot_bgcolor='#f8fbff', paper_bgcolor='white',
                           xaxis_title="Year", yaxis_title="Life Expectancy (Years)",
-                          yaxis=dict(range=[35,80]), margin=dict(l=10,r=10,t=10,b=10),
-                          font=dict(family='Source Sans 3'), showlegend=False)
+                          xaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
+                          yaxis=dict(range=[35,80], title_font=dict(color='black'), tickfont=dict(color='black')),
+                          margin=dict(l=10,r=10,t=10,b=10),
+                          font=dict(family='Source Sans 3', color='black'), showlegend=False)
         fig.add_annotation(x=2021, y=67.3, text="<b>COVID dip (2021)</b>",
                            showarrow=True, arrowhead=2, font=dict(color='#e57373'))
         fig.add_annotation(x=2024, y=72.2, text="<b>72.2 yrs (2024)</b>",
@@ -166,12 +168,16 @@ elif "Global" in page:
     fig = px.bar(global_df.sort_values('life_expectancy'),
                  x='life_expectancy', y='country', color='continent',
                  orientation='h', color_discrete_map=colors, text='life_expectancy')
-    fig.update_traces(texttemplate='%{text:.1f}', textposition='outside')
+    fig.update_traces(texttemplate='%{text:.1f}', textposition='outside', textfont=dict(color='black'))
     fig.add_vline(x=72.2, line_dash='dash', line_color='#ff7043',
                   annotation_text='India 72.2', annotation_position='top right')
     fig.update_layout(height=600, plot_bgcolor='#f8fbff', paper_bgcolor='white',
                       xaxis_title="Life Expectancy (Years)", yaxis_title="",
-                      font=dict(family='Source Sans 3'), margin=dict(l=10,r=60,t=20,b=10))
+                      xaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
+                      yaxis=dict(tickfont=dict(color='black')),
+                      font=dict(family='Source Sans 3', color='black'),
+                      legend=dict(font=dict(color='black')),
+                      margin=dict(l=10,r=60,t=20,b=10))
     st.plotly_chart(fig, use_container_width=True)
 
     c1,c2,c3 = st.columns(3)
@@ -194,10 +200,13 @@ elif "India State" in page:
         fig = px.bar(sorted_states, x='state', y='life_expectancy',
                      color='life_expectancy', color_continuous_scale='RdYlGn',
                      text='life_expectancy')
-        fig.update_traces(texttemplate='%{text:.1f}', textposition='outside')
+        fig.update_traces(texttemplate='%{text:.1f}', textposition='outside',
+                          textfont=dict(color='black'))
         fig.update_layout(height=430, plot_bgcolor='#f8fbff', paper_bgcolor='white',
-                          xaxis_tickangle=-45, font=dict(family='Source Sans 3'),
+                          xaxis_tickangle=-45, font=dict(family='Source Sans 3', color='black'),
                           coloraxis_showscale=False, xaxis_title="", yaxis_title="Life Expectancy (yrs)",
+                          xaxis=dict(tickfont=dict(color='black')),
+                          yaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
                           margin=dict(l=10,r=10,t=20,b=90))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -268,10 +277,14 @@ elif "Future" in page:
         fill='toself', fillcolor='rgba(79,195,247,0.07)',
         line=dict(color='rgba(0,0,0,0)'), name='Uncertainty Band'))
     fig.add_hline(y=72.2, line_dash='dash', line_color='#4fc3f7',
-                  annotation_text='Current 72.2 yrs')
+                  annotation_text='Current 72.2 yrs',
+                  annotation_font=dict(color='black'))
     fig.update_layout(height=450, plot_bgcolor='#f8fbff', paper_bgcolor='white',
-                      font=dict(family='Source Sans 3'), legend=dict(orientation='h', y=-0.15),
+                      font=dict(family='Source Sans 3', color='black'),
+                      legend=dict(orientation='h', y=-0.15, font=dict(color='black')),
                       xaxis_title="Year", yaxis_title="Predicted Life Expectancy (Years)",
+                      xaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
+                      yaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
                       margin=dict(l=10,r=10,t=20,b=10))
     st.plotly_chart(fig, use_container_width=True)
 
@@ -321,10 +334,13 @@ elif "SHAP" in page:
     fig = go.Figure(go.Bar(x=shap_plot['importance'], y=shap_plot['label'],
                            orientation='h',
                            marker=dict(color=shap_plot['importance'], colorscale='Blues', showscale=False),
-                           text=shap_plot['importance'].round(3), textposition='outside'))
+                           text=shap_plot['importance'].round(3), textposition='outside',
+                           textfont=dict(color='black')))
     fig.update_layout(height=500, plot_bgcolor='#f8fbff', paper_bgcolor='white',
-                      font=dict(family='Source Sans 3'),
+                      font=dict(family='Source Sans 3', color='black'),
                       xaxis_title="Mean |SHAP Value| (Years of Life Expectancy)",
+                      xaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
+                      yaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
                       margin=dict(l=10,r=80,t=20,b=10))
     st.plotly_chart(fig, use_container_width=True)
 
@@ -356,10 +372,12 @@ elif "Causal" in page:
     fig = go.Figure(go.Bar(x=eff_df['label'], y=eff_df['effect'],
                            marker_color=eff_df['color_bar'],
                            text=eff_df['effect'].apply(lambda x: f"+{x:.1f}" if x>0 else f"{x:.1f}"),
-                           textposition='outside'))
+                           textposition='outside', textfont=dict(color='black')))
     fig.add_hline(y=0, line_color='#333', line_width=1)
     fig.update_layout(height=360, plot_bgcolor='#f8fbff', paper_bgcolor='white',
-                      font=dict(family='Source Sans 3'), xaxis_tickangle=-20,
+                      font=dict(family='Source Sans 3', color='black'), xaxis_tickangle=-20,
+                      xaxis=dict(tickfont=dict(color='black')),
+                      yaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
                       yaxis_title="Causal Effect on Life Expectancy (Years)",
                       margin=dict(l=10,r=10,t=20,b=10))
     st.plotly_chart(fig, use_container_width=True)
@@ -489,7 +507,10 @@ elif "Model Comparison" in page:
                       line=dict(color='#e57373', dash='dash'))
         fig.update_layout(plot_bgcolor='#f8fbff', paper_bgcolor='white',
                           xaxis_title="Actual", yaxis_title="Predicted",
-                          font=dict(family='Source Sans 3'), margin=dict(l=10,r=10,t=20,b=10))
+                          xaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
+                          yaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
+                          font=dict(family='Source Sans 3', color='black'),
+                          margin=dict(l=10,r=10,t=20,b=10))
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
@@ -501,7 +522,10 @@ elif "Model Comparison" in page:
                        line=dict(color='#e57373', dash='dash'))
         fig2.update_layout(plot_bgcolor='#f8fbff', paper_bgcolor='white',
                            xaxis_title="Actual", yaxis_title="Predicted",
-                           font=dict(family='Source Sans 3'), margin=dict(l=10,r=10,t=20,b=10))
+                           xaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
+                           yaxis=dict(title_font=dict(color='black'), tickfont=dict(color='black')),
+                           font=dict(family='Source Sans 3', color='black'),
+                           margin=dict(l=10,r=10,t=20,b=10))
         st.plotly_chart(fig2, use_container_width=True)
 
     # Summary table
@@ -563,7 +587,17 @@ elif "Ancestral" in page:
     fig.add_trace(go.Scatterpolar(r=comparison['Modern India'], theta=cats, fill='toself',
                                   name='Modern India', line_color='#e57373',
                                   fillcolor='rgba(229,115,115,0.2)'))
-    fig.update_layout(polar=dict(radialaxis=dict(visible=True, range=[0,10])),
-                      height=420, paper_bgcolor='white', font=dict(family='Source Sans 3'),
-                      legend=dict(orientation='h', y=-0.1))
+    fig.update_layout(polar=dict(
+                            radialaxis=dict(
+                              visible=True,
+                              range=[0,10],
+                              tickfont=dict(color='black')
+                          ),
+                          angularaxis=dict(
+                              tickfont=dict(color='black')
+                          )),
+                      height=420, paper_bgcolor='white',
+                      font=dict(family='Source Sans 3', color='black'),
+                      legend=dict(orientation='h', y=-0.1,
+                                  font=dict(color='black')))
     st.plotly_chart(fig, use_container_width=True)
